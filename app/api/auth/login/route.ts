@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { getSupabaseClient } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface LoginRequest {
@@ -23,6 +23,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<LoginResp
       );
     }
 
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
