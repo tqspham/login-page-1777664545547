@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { getSupabaseClient } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
@@ -21,6 +21,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   try {
+    const supabase = getSupabaseClient();
     const { error } = await supabase.rpc('exec_sql', { sql: initSql });
     
     if (error) {
